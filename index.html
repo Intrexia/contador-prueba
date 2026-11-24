@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contador de visitas</title>
+<style>
+  body{font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;background:#f5f5f4;color:#1c1917}
+  main{text-align:center}
+  #n{font-size:6rem;font-weight:700;margin:.2em 0}
+  p{color:#78716c}
+</style>
+</head>
+<body>
+<main>
+  <p>Esta página se ha cargado</p>
+  <div id="n">…</div>
+  <p>veces. Recarga para sumar una más.</p>
+</main>
+<script>
+  const URL_SB = "https://vqyqnafbwnhhawxnriaw.supabase.co";
+  const KEY = "sb_publishable_q5OcSjFTvwFMUtNL08VlvA_BCiW-cXz";
+  fetch(URL_SB + "/rest/v1/rpc/incrementar_contador", {
+    method: "POST",
+    headers: { apikey: KEY, Authorization: "Bearer " + KEY, "Content-Type": "application/json" },
+    body: "{}"
+  })
+    .then(r => r.json())
+    .then(v => { document.getElementById("n").textContent = v; })
+    .catch(() => { document.getElementById("n").textContent = "error"; });
+</script>
+</body>
+</html>
